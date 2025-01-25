@@ -1,6 +1,6 @@
-# VST Plugin Project
+# Needles - image to sound synth
 
-A professional VST plugin built with JUCE framework.
+This is an idea for a synth I've had for a while. I don't have time to learn JUCE at home so I'm using Cursor AI IDE to do it for me.
 
 ## Prerequisites
 
