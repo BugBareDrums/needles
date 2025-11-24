@@ -8,10 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find JUCE framework
 find_package(PkgConfig REQUIRED)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-# JUCE setup (assuming JUCE is available)
-add_subdirectory(JUCE)
+# JUCE setup - use the system installation
+set(JUCE_ROOT "/Applications/JUCE")
+list(APPEND CMAKE_PREFIX_PATH "${JUCE_ROOT}")
+add_subdirectory("${JUCE_ROOT}" JUCE)
 
 # Create plugin target
 juce_add_plugin(Needles

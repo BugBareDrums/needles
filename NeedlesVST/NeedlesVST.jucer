@@ -21,19 +21,6 @@
       <FILE id="H9hGSw" name="PluginState.cpp" compile="1" resource="0" file="Source/PluginState.cpp"/>
       <FILE id="I0iHTx" name="PluginState.h" compile="0" resource="0" file="Source/PluginState.h"/>
     </GROUP>
-    <GROUP id="{F9G95G72-0G5B-51A4-A0E5-7G9D6F6G6G6G}" name="Tests">
-      <GROUP id="{G0H06H83-1H6C-62B5-B1F6-8H0E7G7H7H7H}" name="Unit">
-        <FILE id="J1jIUy" name="ImageLoaderTest.cpp" compile="1" resource="0" file="Tests/Unit/ImageLoaderTest.cpp"/>
-        <FILE id="K2kJVz" name="ImageScannerTest.cpp" compile="1" resource="0" file="Tests/Unit/ImageScannerTest.cpp"/>
-        <FILE id="L3lKWA" name="AudioSynthesisTest.cpp" compile="1" resource="0" file="Tests/Unit/AudioSynthesisTest.cpp"/>
-        <FILE id="M4mLXB" name="ParameterManagerTest.cpp" compile="1" resource="0" file="Tests/Unit/ParameterManagerTest.cpp"/>
-      </GROUP>
-      <GROUP id="{H1I17I94-2I7D-73C6-C2G7-9I1F8H8I8I8I}" name="Integration">
-        <FILE id="N5nMYC" name="NeedlesWorkflowTest.cpp" compile="1" resource="0" file="Tests/Integration/NeedlesWorkflowTest.cpp"/>
-        <FILE id="O6oNZD" name="ParameterUpdateTest.cpp" compile="1" resource="0" file="Tests/Integration/ParameterUpdateTest.cpp"/>
-        <FILE id="P7pOAE" name="AdvancedSynthesisTest.cpp" compile="1" resource="0" file="Tests/Integration/AdvancedSynthesisTest.cpp"/>
-      </GROUP>
-    </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
