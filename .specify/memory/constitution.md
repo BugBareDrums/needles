@@ -1,50 +1,99 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version: 1.0.0 (initial constitution)
+- New principles: All principles are new (I. Code Quality, II. Testing Standards, III. User Experience, IV. Performance Requirements)
+- Added sections: Performance Standards, Development Workflow
+- Templates updated: ✅ constitution.md (this file), ✅ plan-template.md (constitution check updated)
+- Follow-up TODOs: None - all placeholders resolved
+-->
+
+# Needles Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Code Quality (NON-NEGOTIABLE)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Every code change MUST meet quality standards before merge. Code MUST be readable, maintainable, and follow established patterns. All code MUST pass linting, formatting, and static analysis checks without exceptions. Complex logic MUST include explanatory comments. No dead code, console.log statements, or commented-out code in production branches.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**Rationale**: High code quality reduces technical debt, improves maintainability, and ensures consistent developer experience across the team.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. Testing Standards (NON-NEGOTIABLE)
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+Test-Driven Development (TDD) is mandatory: Tests written → Tests fail → Then implement → Tests pass. Every user story MUST have independent integration tests. All contract changes MUST include contract tests. Minimum 80% code coverage required. Tests MUST be deterministic and environment-independent.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Rationale**: TDD ensures code correctness, prevents regressions, and validates that requirements are testable and well-understood before implementation.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. User Experience Excellence
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+Every feature MUST prioritize user needs over technical convenience. User interfaces MUST be intuitive, responsive, and accessible. Error messages MUST be user-friendly with clear action paths. Performance MUST feel instantaneous for common operations (<200ms response time). Loading states and feedback MUST be provided for operations >100ms.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+**Rationale**: User experience drives product success and adoption. Technical excellence without user focus delivers no business value.
+
+### IV. Performance Requirements
+
+All features MUST meet performance benchmarks: Web responses <200ms p95, API throughput >1000 req/sec, mobile app startup <2 seconds, database queries <50ms p95. Performance testing MUST be included in CI/CD pipeline. Performance regressions block deployment.
+
+**Rationale**: Performance is a feature, not an optimization. Poor performance directly impacts user satisfaction and business metrics.
+
+## Performance Standards
+
+**Response Time Targets**:
+
+- Interactive operations: <100ms
+- Page loads: <200ms p95
+- API responses: <200ms p95
+- Database queries: <50ms p95
+- Mobile app startup: <2 seconds
+
+**Throughput Targets**:
+
+- API endpoints: >1000 requests/second
+- Background processing: >10,000 items/hour
+- Real-time features: <50ms latency
+
+**Resource Constraints**:
+
+- Memory usage: <500MB per service
+- CPU utilization: <70% sustained
+- Storage growth: <10% monthly without data growth
+
+## Development Workflow
+
+**Code Review Process**:
+
+- All changes require peer review before merge
+- Reviews MUST verify constitution compliance
+- Constitution violations require explicit justification and approval
+- Security and performance implications MUST be assessed
+
+**Quality Gates**:
+
+- All automated tests MUST pass
+- Code coverage MUST meet minimum thresholds
+- Static analysis MUST show no high-severity issues
+- Performance benchmarks MUST be maintained
+
+**Documentation Requirements**:
+
+- User-facing features require quickstart documentation
+- Complex technical decisions require architectural documentation
+- Breaking changes require migration guides
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices and standards. All pull requests and code reviews MUST verify compliance with these principles. Any violations MUST be explicitly justified with business rationale and approved by technical leadership.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Constitution amendments require:
+
+1. Documented proposal with rationale
+2. Impact assessment on existing code
+3. Migration plan for non-compliant code
+4. Team consensus and formal approval
+
+Complexity that violates simplicity principles MUST be justified with:
+
+- Clear business necessity
+- Evidence that simpler alternatives are insufficient
+- Maintenance plan for the added complexity
+
+**Version**: 1.0.0 | **Ratified**: 2024-11-24 | **Last Amended**: 2024-11-24
