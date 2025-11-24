@@ -1,0 +1,70 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# Build Directories
+build/
+bin/
+obj/
+out/
+Builds/VisualStudio*/
+Builds/Xcode/
+Builds/LinuxMakefile/
+
+# C++ Compiled Files
+*.o
+*.so
+*.a
+*.exe
+*.dll
+*.dylib
+*.class
+
+# JUCE Generated Files
+JuceLibraryCode/
+*.jucer.bak
+
+# IDE Files
+.idea/
+.vscode/
+*.user
+*.suo
+*.vcxproj.filters
+*.vcxproj.user
+*.xcuserstate
+*.xcuserdatad/
+
+# Logs and Debug Files
+*.log
+*.log.*
+debug/
+release/
+
+# Environment Files
+.env*
+
+# Test Coverage
+coverage/
+
+# Visual Studio Code
+.vscode/
+
+# Development Tools
+*.prof*
+*.pdb
+*.idb
+*.ilk
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Temporary Files
+*~
+*.bak
+*.orig
+*.rej

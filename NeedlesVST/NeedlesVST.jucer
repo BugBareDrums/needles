@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="needles" name="Needles" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="1" jucerFormatVersion="1" version="1.0.0"
+              companyName="Needles Audio" companyWebsite="https://needles.audio"
+              companyEmail="info@needles.audio" reportAppUsage="0" displaySplashScreen="0">
+  <MAINGROUP id="y0Hfwu" name="Needles">
+    <GROUP id="{E8F85F61-9F4B-40A3-A9D4-6F8C5E5F5F5F}" name="Source">
+      <FILE id="VyOTZK" name="PluginProcessor.cpp" compile="1" resource="0" file="Source/PluginProcessor.cpp"/>
+      <FILE id="W8wVHl" name="PluginProcessor.h" compile="0" resource="0" file="Source/PluginProcessor.h"/>
+      <FILE id="X9xWIm" name="PluginEditor.cpp" compile="1" resource="0" file="Source/PluginEditor.cpp"/>
+      <FILE id="Y0yXJn" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="Z1zYKo" name="ImageLoader.cpp" compile="1" resource="0" file="Source/ImageLoader.cpp"/>
+      <FILE id="A2aZLp" name="ImageLoader.h" compile="0" resource="0" file="Source/ImageLoader.h"/>
+      <FILE id="B3bAMq" name="ImageScanner.cpp" compile="1" resource="0" file="Source/ImageScanner.cpp"/>
+      <FILE id="C4cBNr" name="ImageScanner.h" compile="0" resource="0" file="Source/ImageScanner.h"/>
+      <FILE id="D5dCOs" name="AudioSynthesis.cpp" compile="1" resource="0" file="Source/AudioSynthesis.cpp"/>
+      <FILE id="E6eDPt" name="AudioSynthesis.h" compile="0" resource="0" file="Source/AudioSynthesis.h"/>
+      <FILE id="F7fEQu" name="ParameterManager.cpp" compile="1" resource="0" file="Source/ParameterManager.cpp"/>
+      <FILE id="G8gFRv" name="ParameterManager.h" compile="0" resource="0" file="Source/ParameterManager.h"/>
+      <FILE id="H9hGSw" name="PluginState.cpp" compile="1" resource="0" file="Source/PluginState.cpp"/>
+      <FILE id="I0iHTx" name="PluginState.h" compile="0" resource="0" file="Source/PluginState.h"/>
+    </GROUP>
+    <GROUP id="{F9G95G72-0G5B-51A4-A0E5-7G9D6F6G6G6G}" name="Tests">
+      <GROUP id="{G0H06H83-1H6C-62B5-B1F6-8H0E7G7H7H7H}" name="Unit">
+        <FILE id="J1jIUy" name="ImageLoaderTest.cpp" compile="1" resource="0" file="Tests/Unit/ImageLoaderTest.cpp"/>
+        <FILE id="K2kJVz" name="ImageScannerTest.cpp" compile="1" resource="0" file="Tests/Unit/ImageScannerTest.cpp"/>
+        <FILE id="L3lKWA" name="AudioSynthesisTest.cpp" compile="1" resource="0" file="Tests/Unit/AudioSynthesisTest.cpp"/>
+        <FILE id="M4mLXB" name="ParameterManagerTest.cpp" compile="1" resource="0" file="Tests/Unit/ParameterManagerTest.cpp"/>
+      </GROUP>
+      <GROUP id="{H1I17I94-2I7D-73C6-C2G7-9I1F8H8I8I8I}" name="Integration">
+        <FILE id="N5nMYC" name="NeedlesWorkflowTest.cpp" compile="1" resource="0" file="Tests/Integration/NeedlesWorkflowTest.cpp"/>
+        <FILE id="O6oNZD" name="ParameterUpdateTest.cpp" compile="1" resource="0" file="Tests/Integration/ParameterUpdateTest.cpp"/>
+        <FILE id="P7pOAE" name="AdvancedSynthesisTest.cpp" compile="1" resource="0" file="Tests/Integration/AdvancedSynthesisTest.cpp"/>
+      </GROUP>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Needles" recommendedWarnings="LLVM"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Needles" recommendedWarnings="LLVM"
+                       optimisation="3"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+    <XCODE_MAC targetFolder="Builds/Xcode">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Needles" recommendedWarnings="LLVM"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Needles" recommendedWarnings="LLVM"
+                       optimisation="3"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Needles" recommendedWarnings="LLVM"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Needles" recommendedWarnings="LLVM"
+                       optimisation="3"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <VST3>
+      <WINDOWS targetFolder=""/>
+    </VST3>
+    <AU>
+      <OSX targetFolder=""/>
+    </AU>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
