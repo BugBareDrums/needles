@@ -9,9 +9,7 @@ build/
 bin/
 obj/
 out/
-Builds/VisualStudio*/
-Builds/Xcode/
-Builds/LinuxMakefile/
+Builds/
 
 # C++ Compiled Files
 *.o
