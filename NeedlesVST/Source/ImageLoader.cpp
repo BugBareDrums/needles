@@ -140,6 +140,23 @@ public:
     }
     
     //==============================================================================
+    // Fast pixel access for area averaging (no interpolation - direct integer access)
+    RGB getPixelFast(int x, int y) const
+    {
+        if (!imageLoaded || x < 0 || x >= dimensions.width || y < 0 || y >= dimensions.height)
+        {
+            return RGB{0, 0, 0};
+        }
+        
+        juce::Colour pixel = image.getPixelAt(x, y);
+        return RGB{
+            static_cast<uint8_t>(pixel.getRed()),
+            static_cast<uint8_t>(pixel.getGreen()),
+            static_cast<uint8_t>(pixel.getBlue())
+        };
+    }
+    
+    //==============================================================================
     RGB getAreaAverage(float x, float y, int areaSize) const override
     {
         if (!imageLoaded || areaSize < 1)
@@ -147,32 +164,45 @@ public:
             return RGB{0, 0, 0};
         }
         
+        // Limit area size to prevent excessive CPU usage
+        // At 44.1kHz, area size of 10 = 100 pixels * 44100 = 4.4M pixel reads/sec
+        areaSize = std::min(areaSize, 15); // Max radius to prevent audio glitches
+        
         // Ensure area size is odd for centered sampling (per data model requirement)
         if (areaSize % 2 == 0)
         {
             areaSize++;
         }
         
+        // Convert to integer coordinates for fast access
+        int centerX = static_cast<int>(std::round(x));
+        int centerY = static_cast<int>(std::round(y));
         int halfSize = areaSize / 2;
+        
+        // Early bounds checking
+        int minX = std::max(0, centerX - halfSize);
+        int maxX = std::min(dimensions.width - 1, centerX + halfSize);
+        int minY = std::max(0, centerY - halfSize);
+        int maxY = std::min(dimensions.height - 1, centerY + halfSize);
+        
+        if (minX > maxX || minY > maxY)
+        {
+            return RGB{0, 0, 0};
+        }
+        
         int totalPixels = 0;
         long totalR = 0, totalG = 0, totalB = 0;
         
-        // Sample area around center point
-        for (int dy = -halfSize; dy <= halfSize; dy++)
+        // Fast integer-based sampling with direct image access
+        for (int dy = minY; dy <= maxY; dy++)
         {
-            for (int dx = -halfSize; dx <= halfSize; dx++)
+            for (int dx = minX; dx <= maxX; dx++)
             {
-                float sampleX = x + dx;
-                float sampleY = y + dy;
-                
-                if (isValidPosition(sampleX, sampleY))
-                {
-                    RGB pixel = getPixel(sampleX, sampleY);
-                    totalR += pixel.red;
-                    totalG += pixel.green;
-                    totalB += pixel.blue;
-                    totalPixels++;
-                }
+                RGB pixel = getPixelFast(dx, dy);
+                totalR += pixel.red;
+                totalG += pixel.green;
+                totalB += pixel.blue;
+                totalPixels++;
             }
         }
         
