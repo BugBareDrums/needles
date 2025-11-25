@@ -36,23 +36,45 @@ private:
     // UI Components (will be implemented in user story phases)
     juce::Label titleLabel;
     
-    // Parameter controls (Phase 4 - User Story 2)
-    // juce::Slider scanSpeedSlider;
-    // juce::Slider areaSizeSlider;
-    // juce::Label scanSpeedLabel;
-    // juce::Label areaSizeLabel;
+    // Parameter controls
+    juce::Slider scanSpeedSlider;
+    juce::Slider areaSizeSlider;
+    
+    juce::Label scanSpeedLabel;
+    juce::Label areaSizeLabel;
 
     // Image display (Phase 3 - User Story 1)
-    // juce::Component imageDisplay;
-    // juce::TextButton loadImageButton;
+    juce::TextButton loadImageButton;
+    juce::Label imageInfoLabel;
+    juce::Image currentImage;
+    bool imageLoaded;
+    
+    // Image display component
+    class ImageDisplayComponent : public juce::Component
+    {
+    public:
+        void setImage(const juce::Image& img) { image = img; repaint(); }
+        void paint(juce::Graphics& g) override;
+        
+    private:
+        juce::Image image;
+    };
+    
+    ImageDisplayComponent imageDisplay;
 
-    // Advanced controls (Phase 5 - User Story 3)
-    // juce::ComboBox conversionFormulaCombo;
-    // juce::ComboBox scanPatternCombo;
+
 
     // Parameter attachments for thread-safe UI updates
-    // std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> scanSpeedAttachment;
-    // std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> areaSizeAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> scanSpeedAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> areaSizeAttachment;
+
+private:
+    // Image loading functionality
+    void loadImageFile();
+    void updateImageDisplay();
+    
+    // Parameter setup
+    void setupParameterControls();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(NeedlesAudioProcessorEditor)
 };

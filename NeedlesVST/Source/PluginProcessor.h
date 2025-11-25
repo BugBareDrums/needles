@@ -83,6 +83,16 @@ public:
     juce::AudioProcessorValueTreeState& getParameters() { return parameters; }
     const juce::AudioProcessorValueTreeState& getParameters() const { return parameters; }
 
+    //==============================================================================
+    // Image loading integration (for editor to call)
+    bool loadImage(const juce::String& filePath);
+    
+    // Error handling - get last error message for UI display
+    const juce::String& getLastError() const { return lastErrorMessage; }
+    
+    // Parameter access for UI
+    juce::AudioProcessorValueTreeState& getParameterTreeState() { return parameters; }
+
 private:
     //==============================================================================
     // Parameter management
@@ -100,6 +110,12 @@ private:
     double currentSampleRate {44100.0};
     int currentBlockSize {512};
     bool isProcessingActive {false};
+    
+    // Thread safety
+    mutable juce::CriticalSection imageMutex;
+    
+    // Error tracking
+    juce::String lastErrorMessage;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(NeedlesAudioProcessor)
 };

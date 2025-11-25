@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <memory>
 #include "AudioSynthesis.h"
 
 //==============================================================================
@@ -109,3 +110,10 @@ public:
      */
     virtual bool isComplete() const = 0;
 };
+
+//==============================================================================
+/**
+ * Factory function to create ImageScanner instance
+ * @return Unique pointer to IImageScanner implementation
+ */
+std::unique_ptr<IImageScanner> createImageScanner();

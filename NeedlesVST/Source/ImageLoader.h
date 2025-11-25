@@ -4,6 +4,7 @@
 #include "ImageScanner.h"
 #include "AudioSynthesis.h"
 #include <string>
+#include <memory>
 
 //==============================================================================
 /**
@@ -82,3 +83,10 @@ public:
      */
     virtual bool isValidPosition(float x, float y) const = 0;
 };
+
+//==============================================================================
+/**
+ * Factory function to create ImageLoader instance
+ * @return Unique pointer to IImageLoader implementation
+ */
+std::unique_ptr<IImageLoader> createImageLoader();

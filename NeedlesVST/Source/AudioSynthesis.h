@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 
 //==============================================================================
 /**
@@ -98,3 +99,10 @@ public:
      */
     virtual float getGain() const = 0;
 };
+
+//==============================================================================
+/**
+ * Factory function to create AudioSynthesis instance
+ * @return Unique pointer to IAudioSynthesis implementation
+ */
+std::unique_ptr<IAudioSynthesis> createAudioSynthesis();
