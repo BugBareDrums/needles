@@ -19,6 +19,7 @@
 #include "AudioSynthesis.h"
 #include "ParameterManager.h"
 #include "PluginState.h"
+#include "StereoProcessor.h"
 
 //==============================================================================
 /**
@@ -105,6 +106,7 @@ private:
     std::unique_ptr<IAudioSynthesis> audioSynthesis;
     std::unique_ptr<IParameterManager> parameterManager;
     std::unique_ptr<IPluginState> pluginState;
+    std::unique_ptr<IStereoProcessor> stereoProcessor;
 
     // Audio processing state
     double currentSampleRate {44100.0};

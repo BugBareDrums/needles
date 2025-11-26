@@ -49,6 +49,8 @@ target_sources(Needles PRIVATE
     Source/ParameterManager.h
     Source/PluginState.cpp
     Source/PluginState.h
+    Source/StereoProcessor.cpp
+    Source/StereoProcessor.h
 )
 
 # Link JUCE modules
@@ -80,24 +82,65 @@ if(BUILD_TESTS)
     if(Catch2_FOUND)
         enable_testing()
         
-        add_executable(NeedlesTests
+        # Unit tests for RGB channel panning
+        add_executable(NeedlesUnitTests
             Tests/Unit/ImageLoaderTest.cpp
             Tests/Unit/ImageScannerTest.cpp
             Tests/Unit/AudioSynthesisTest.cpp
             Tests/Unit/ParameterManagerTest.cpp
+            # RGB Channel Panning Unit Tests
+            Tests/unit/StereoProcessorTest.cpp
+            Tests/unit/ParameterRangeTest.cpp
+            Tests/unit/ParameterSmoothingTest.cpp
+        )
+        
+        # Integration tests for complete workflows
+        add_executable(NeedlesIntegrationTests
             Tests/Integration/NeedlesWorkflowTest.cpp
             Tests/Integration/ParameterUpdateTest.cpp
             Tests/Integration/AdvancedSynthesisTest.cpp
+            # RGB Channel Panning Integration Tests  
+            Tests/integration/RGBChannelTest.cpp
+            Tests/integration/AutomationTest.cpp
+            Tests/integration/StereoOutputTest.cpp
         )
         
-        target_link_libraries(NeedlesTests PRIVATE
+        # Performance tests for CPU and memory validation
+        add_executable(NeedlesPerformanceTests
+            Tests/performance/PanPerformanceTest.cpp
+        )
+        
+        # Link libraries for all test executables
+        target_link_libraries(NeedlesUnitTests PRIVATE
             Catch2::Catch2WithMain
             juce::juce_audio_basics
             juce::juce_audio_formats
+            juce::juce_audio_processors
             juce::juce_core
             juce::juce_graphics
         )
         
-        add_test(NAME NeedlesUnitTests COMMAND NeedlesTests)
+        target_link_libraries(NeedlesIntegrationTests PRIVATE
+            Catch2::Catch2WithMain
+            juce::juce_audio_basics
+            juce::juce_audio_formats
+            juce::juce_audio_processors
+            juce::juce_core
+            juce::juce_graphics
+        )
+        
+        target_link_libraries(NeedlesPerformanceTests PRIVATE
+            Catch2::Catch2WithMain
+            juce::juce_audio_basics
+            juce::juce_audio_formats
+            juce::juce_audio_processors
+            juce::juce_core
+            juce::juce_graphics
+        )
+        
+        # Register tests with CTest
+        add_test(NAME UnitTests COMMAND NeedlesUnitTests)
+        add_test(NAME IntegrationTests COMMAND NeedlesIntegrationTests)
+        add_test(NAME PerformanceTests COMMAND NeedlesPerformanceTests)
     endif()
 endif()

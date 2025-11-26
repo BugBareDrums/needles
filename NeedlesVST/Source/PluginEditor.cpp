@@ -6,7 +6,7 @@ NeedlesAudioProcessorEditor::NeedlesAudioProcessorEditor(NeedlesAudioProcessor& 
     : AudioProcessorEditor(&p), audioProcessor(p), imageLoaded(false)
 {
     // Set plugin window size
-    setSize(500, 400);
+    setSize(500, 500);
 
     // Setup basic title label
     titleLabel.setText("Needles - Image to Audio VST", juce::dontSendNotification);
@@ -78,11 +78,53 @@ void NeedlesAudioProcessorEditor::setupParameterControls()
     areaSizeLabel.setColour(juce::Label::textColourId, juce::Colours::white);
     addAndMakeVisible(areaSizeLabel);
     
+    // Setup RGB Pan controls
+    redPanSlider.setSliderStyle(juce::Slider::LinearHorizontal);
+    redPanSlider.setTextBoxStyle(juce::Slider::TextBoxRight, false, 60, 20);
+    redPanSlider.setColour(juce::Slider::trackColourId, juce::Colour(0xff666666));
+    redPanSlider.setColour(juce::Slider::thumbColourId, juce::Colour(0xffFF4444));
+    addAndMakeVisible(redPanSlider);
+    
+    redPanLabel.setText("Red Pan", juce::dontSendNotification);
+    redPanLabel.setJustificationType(juce::Justification::centredLeft);
+    redPanLabel.setColour(juce::Label::textColourId, juce::Colour(0xffFF4444));
+    addAndMakeVisible(redPanLabel);
+    
+    greenPanSlider.setSliderStyle(juce::Slider::LinearHorizontal);
+    greenPanSlider.setTextBoxStyle(juce::Slider::TextBoxRight, false, 60, 20);
+    greenPanSlider.setColour(juce::Slider::trackColourId, juce::Colour(0xff666666));
+    greenPanSlider.setColour(juce::Slider::thumbColourId, juce::Colour(0xff44FF44));
+    addAndMakeVisible(greenPanSlider);
+    
+    greenPanLabel.setText("Green Pan", juce::dontSendNotification);
+    greenPanLabel.setJustificationType(juce::Justification::centredLeft);
+    greenPanLabel.setColour(juce::Label::textColourId, juce::Colour(0xff44FF44));
+    addAndMakeVisible(greenPanLabel);
+    
+    bluePanSlider.setSliderStyle(juce::Slider::LinearHorizontal);
+    bluePanSlider.setTextBoxStyle(juce::Slider::TextBoxRight, false, 60, 20);
+    bluePanSlider.setColour(juce::Slider::trackColourId, juce::Colour(0xff666666));
+    bluePanSlider.setColour(juce::Slider::thumbColourId, juce::Colour(0xff4444FF));
+    addAndMakeVisible(bluePanSlider);
+    
+    bluePanLabel.setText("Blue Pan", juce::dontSendNotification);
+    bluePanLabel.setJustificationType(juce::Justification::centredLeft);
+    bluePanLabel.setColour(juce::Label::textColourId, juce::Colour(0xff4444FF));
+    addAndMakeVisible(bluePanLabel);
+    
     // Create parameter attachments for thread-safe updates
     scanSpeedAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
         audioProcessor.getParameterTreeState(), "scanSpeed", scanSpeedSlider);
     areaSizeAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
         audioProcessor.getParameterTreeState(), "areaSize", areaSizeSlider);
+    
+    // Create RGB Pan attachments
+    redPanAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
+        audioProcessor.getParameterTreeState(), "redPan", redPanSlider);
+    greenPanAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
+        audioProcessor.getParameterTreeState(), "greenPan", greenPanSlider);
+    bluePanAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
+        audioProcessor.getParameterTreeState(), "bluePan", bluePanSlider);
 }
 
 void NeedlesAudioProcessorEditor::resized()
@@ -121,6 +163,37 @@ void NeedlesAudioProcessorEditor::resized()
     auto areaSizeArea = parameterArea.withX(startX + controlWidth + controlSpacing).withWidth(controlWidth);
     areaSizeLabel.setBounds(areaSizeArea.removeFromTop(20));
     areaSizeSlider.setBounds(areaSizeArea);
+    
+    area.removeFromTop(10); // Spacing
+    
+    // RGB Pan controls area
+    auto rgbPanArea = area.removeFromTop(100);
+    int labelWidth = 80;
+    int sliderWidth = 200;
+    int lineHeight = 30;
+    
+    // Calculate centering for RGB controls
+    int rgbTotalWidth = labelWidth + sliderWidth + 60; // 60 for text box
+    int rgbStartX = (rgbPanArea.getWidth() - rgbTotalWidth) / 2;
+    
+    // Red Pan
+    auto redPanLine = rgbPanArea.removeFromTop(lineHeight);
+    redPanLabel.setBounds(redPanLine.withX(rgbStartX).withWidth(labelWidth));
+    redPanSlider.setBounds(redPanLine.withX(rgbStartX + labelWidth).withWidth(sliderWidth + 60));
+    
+    rgbPanArea.removeFromTop(5); // Small spacing
+    
+    // Green Pan
+    auto greenPanLine = rgbPanArea.removeFromTop(lineHeight);
+    greenPanLabel.setBounds(greenPanLine.withX(rgbStartX).withWidth(labelWidth));
+    greenPanSlider.setBounds(greenPanLine.withX(rgbStartX + labelWidth).withWidth(sliderWidth + 60));
+    
+    rgbPanArea.removeFromTop(5); // Small spacing
+    
+    // Blue Pan
+    auto bluePanLine = rgbPanArea.removeFromTop(lineHeight);
+    bluePanLabel.setBounds(bluePanLine.withX(rgbStartX).withWidth(labelWidth));
+    bluePanSlider.setBounds(bluePanLine.withX(rgbStartX + labelWidth).withWidth(sliderWidth + 60));
     
     area.removeFromTop(10); // Spacing
     

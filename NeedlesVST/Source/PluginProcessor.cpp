@@ -19,6 +19,7 @@ NeedlesAudioProcessor::NeedlesAudioProcessor()
     imageLoader = createImageLoader();
     imageScanner = createImageScanner();
     audioSynthesis = createAudioSynthesis();
+    stereoProcessor = createStereoProcessor();
     
     DBG("Needles: AudioProcessor initialized with core components");
 }
@@ -228,16 +229,44 @@ void NeedlesAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce:
             pixelData = RGB{0, 0, 0};
         }
         
-        // Convert RGB to audio sample
-        float audioSample = audioSynthesis->rgbToAudio(pixelData, ConversionFormula::RGBAverage);
+        // Convert RGB to separate channel audio samples
+        float redAudio = pixelData.toAudioChannel(0);    // Red channel
+        float greenAudio = pixelData.toAudioChannel(1);  // Green channel  
+        float blueAudio = pixelData.toAudioChannel(2);   // Blue channel
         
-        // Clamp audio sample to prevent clipping/distortion
-        audioSample = juce::jlimit(-1.0f, 1.0f, audioSample);
+        // Get RGB pan parameter values
+        auto* redPanParam = parameters.getRawParameterValue("redPan");
+        auto* greenPanParam = parameters.getRawParameterValue("greenPan");
+        auto* bluePanParam = parameters.getRawParameterValue("bluePan");
         
-        // Write to all output channels
-        for (int channel = 0; channel < numChannels; ++channel)
+        // Convert from percentage [-100, +100] to normalized [-1.0, +1.0]
+        float redPan = redPanParam ? redPanParam->load() / 100.0f : 0.0f;
+        float greenPan = greenPanParam ? greenPanParam->load() / 100.0f : 0.0f;
+        float bluePan = bluePanParam ? bluePanParam->load() / 100.0f : 0.0f;
+        
+        // Apply stereo positioning to individual RGB channels using StereoProcessor
+        auto [redLeft, redRight] = stereoProcessor->processPan(redAudio, redPan);
+        auto [greenLeft, greenRight] = stereoProcessor->processPan(greenAudio, greenPan);
+        auto [blueLeft, blueRight] = stereoProcessor->processPan(blueAudio, bluePan);
+        
+        // Mix processed RGB stereo channels to final output
+        float leftSample = (redLeft + greenLeft + blueLeft) / 3.0f;
+        float rightSample = (redRight + greenRight + blueRight) / 3.0f;
+        
+        // Clamp mixed samples to prevent clipping
+        leftSample = juce::jlimit(-1.0f, 1.0f, leftSample);
+        rightSample = juce::jlimit(-1.0f, 1.0f, rightSample);
+        
+        // Write stereo output (left channel = 0, right channel = 1)
+        if (numChannels >= 1)
+            buffer.setSample(0, sample, leftSample);   // Left channel
+        if (numChannels >= 2)
+            buffer.setSample(1, sample, rightSample);  // Right channel
+        
+        // If more than 2 channels, duplicate stereo to remaining channels
+        for (int channel = 2; channel < numChannels; ++channel)
         {
-            buffer.setSample(channel, sample, audioSample);
+            buffer.setSample(channel, sample, (channel % 2 == 0) ? leftSample : rightSample);
         }
     }
 }
@@ -438,6 +467,28 @@ juce::AudioProcessorValueTreeState::ParameterLayout NeedlesAudioProcessor::creat
         "Right Channel Weight",
         juce::NormalisableRange<float>(0.0f, 1.0f, 0.01f),
         0.5f));
+
+    // RGB Channel Panning parameters (002-channel-panning feature)
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "redPan",
+        "Red Pan",
+        juce::NormalisableRange<float>(-100.0f, 100.0f, 0.1f),
+        0.0f,
+        "%"));
+
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "greenPan",
+        "Green Pan", 
+        juce::NormalisableRange<float>(-100.0f, 100.0f, 0.1f),
+        0.0f,
+        "%"));
+
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(
+        "bluePan",
+        "Blue Pan",
+        juce::NormalisableRange<float>(-100.0f, 100.0f, 0.1f),
+        0.0f,
+        "%"));
 
     // Advanced synthesis parameters (User Story 3)
     params.push_back(std::make_unique<juce::AudioParameterChoice>(

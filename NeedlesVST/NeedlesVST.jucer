@@ -20,6 +20,8 @@
       <FILE id="G8gFRv" name="ParameterManager.h" compile="0" resource="0" file="Source/ParameterManager.h"/>
       <FILE id="H9hGSw" name="PluginState.cpp" compile="1" resource="0" file="Source/PluginState.cpp"/>
       <FILE id="I0iHTx" name="PluginState.h" compile="0" resource="0" file="Source/PluginState.h"/>
+      <FILE id="J1jIUy" name="StereoProcessor.cpp" compile="1" resource="0" file="Source/StereoProcessor.cpp"/>
+      <FILE id="K2kJVz" name="StereoProcessor.h" compile="0" resource="0" file="Source/StereoProcessor.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

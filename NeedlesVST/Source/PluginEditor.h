@@ -40,8 +40,16 @@ private:
     juce::Slider scanSpeedSlider;
     juce::Slider areaSizeSlider;
     
+    // RGB Pan controls
+    juce::Slider redPanSlider;
+    juce::Slider greenPanSlider;
+    juce::Slider bluePanSlider;
+    
     juce::Label scanSpeedLabel;
     juce::Label areaSizeLabel;
+    juce::Label redPanLabel;
+    juce::Label greenPanLabel;
+    juce::Label bluePanLabel;
 
     // Image display (Phase 3 - User Story 1)
     juce::TextButton loadImageButton;
@@ -67,6 +75,11 @@ private:
     // Parameter attachments for thread-safe UI updates
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> scanSpeedAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> areaSizeAttachment;
+    
+    // RGB Pan attachments
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> redPanAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> greenPanAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> bluePanAttachment;
 
 private:
     // Image loading functionality
